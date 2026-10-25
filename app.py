@@ -95,9 +95,31 @@ anos_programacao = st.number_input(
     step=1
 )
 
+# Idade mínima de cada faixa etária
+idades_minimas = {
+    "Under 18 years old": 0,
+    "18-24 years old": 18,
+    "25-34 years old": 25,
+    "35-44 years old": 35,
+    "45-54 years old": 45,
+    "55-64 years old": 55,
+    "65 years or older": 65,
+    "Prefer not to say": None
+}
+
 st.divider()
 
 if st.button("Calcular probabilidade", type="primary", use_container_width=True):
+
+
+    idade_minima = idades_minimas[faixa_etaria]
+
+    if idade_minima is not None and anos_programacao > idade_minima:
+        st.error(
+            "Dados inválidos: os anos de experiência com programação "
+            "não podem ser maiores que a idade mínima da faixa etária selecionada."
+        )
+        st.stop()
 
     # Criar DataFrame com os nomes e a ordem das colunas
     # utilizados durante o treinamento do modelo.
